@@ -3,7 +3,8 @@
 import json 
 from PyInquirer import prompt
 import subprocess
-import shutil
+import os
+import platform
 
 
 def read_templates(json_address: str) -> dict: 
@@ -13,7 +14,7 @@ def read_templates(json_address: str) -> dict:
 
 
 def create(): 
-    template_dict = read_templates("C:/Users/harsh.jaluka/Desktop/bct_cli/template.json") 
+    template_dict = read_templates("template.json")
     questions = [
         {
                 'type': 'list',
@@ -43,9 +44,8 @@ def create():
     clone_template_call = 'git clone ' + template_url + ' ' + project_name + ' --depth=1'
 
     subprocess.run(clone_template_call, shell=True)
-    
-    git_folder_path = project_name + '/' + '.git'
-    shutil.rmtree(git_folder_path)
+
+    delete_git_dir(project_name)
 
     if bitbucket_url == '': 
         print('Cloning successful!')
@@ -59,6 +59,17 @@ def create():
         subprocess.run(git_remote_add_origin)
         subprocess.run(git_fetch)
         subprocess.run(git_reset)
+
+
+def delete_git_dir(project_name):
+    sys_type = platform.system()
+    git_folder_path = '"' + os.path.join(project_name, '.git') + '"'
+    print('Git folder path:', git_folder_path)
+    if sys_type == 'Windows':
+        delete_git = 'rmdir /S /Q ' + git_folder_path
+    else:
+        delete_git = 'rm -rf ' + git_folder_path
+    subprocess.run(delete_git, shell=True)
 
 
 if __name__ == '__main__': 
