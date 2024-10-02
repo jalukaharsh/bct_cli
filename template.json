@@ -1,0 +1,8 @@
+{
+  "django": "git@bitbucket.org:barecoveteam/bct-sample-django.git",
+  "react-static": "git@bitbucket.org:barecoveteam/bct-sample-static-react.git",
+  "express": "git@bitbucket.org:barecoveteam/bct-sample-express.git",
+  "flask": "git@bitbucket.org:barecoveteam/bct-sample-flask.git",
+  "vite": "git@bitbucket.org:barecoveteam/bct-sample-frontend-react-vite",
+  "harsh": "https://github.com/jalukaharsh/back-and-forth.git"
+}
