@@ -51,9 +51,9 @@ def create():
         print('Cloning successful!')
     else: 
         git_init = 'git init ' + project_name
-        git_remote_add_origin = 'git remote add origin ' + bitbucket_url + ' ' + project_name
-        git_fetch = 'git fetch --all ' + project_name
-        git_reset = 'git reset -- hard origin/master ' + project_name
+        git_remote_add_origin = 'git remote add origin ' + project_name + ' ' + bitbucket_url
+        git_fetch = 'git fetch --all '
+        git_reset = 'git reset --hard origin/master ' + project_name
 
         subprocess.run(git_init)
         subprocess.run(git_remote_add_origin)
