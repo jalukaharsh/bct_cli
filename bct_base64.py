@@ -7,26 +7,37 @@ import base64
 def base64_encoder(): 
     questions = [
         {
+            'type': 'list',
+            'name': 'encode_decode',
+            'choices': ['Encode', 'Decode'],
+            'message': 'Would you like to encode or decode?',
+        },
+        {
             'type': 'input',
             'name': 'path',
-            'message': 'Please input the file path of private key',
+            'message': 'Please input the file path of the private key',
         }
     ]   
 
     answers = prompt(questions)
     path = answers['path']
+    encode = answers['encode_decode']
 
     extracted_text = extract_text(path)
-    print(extracted_text)
 
-    b = base64.b64encode(bytes(extracted_text, 'utf-8')) # bytes
-    base64_str = b.decode('utf-8') # convert bytes to string
+    if encode == 'E':
+        b = base64.b64encode(bytes(extracted_text, 'utf-8'))  # bytes
+        base64_str = b.decode('utf-8')  # convert bytes to string
+        print(base64_str)
+    else:
+        b = base64.b64decode(extracted_text)
+        plaintext = b.decode('utf-8')  # convert bytes to string
+        print(plaintext)
 
-    print(base64_str)
 
-def extract_text(filepath: str) -> str: 
-    with open(filepath, 'r') as file: 
-        my_txt = file.read()
+def extract_text(filepath: str) -> str:
+    with open(filepath, 'r') as f:
+        my_txt = f.read()
 
     return my_txt
 
