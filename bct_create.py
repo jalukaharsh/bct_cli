@@ -5,14 +5,22 @@ from PyInquirer import prompt
 import subprocess
 import os
 import platform
+import requests
 
 
 def get_templates():
-    with open('config.json', 'r') as f: 
+    config_abs_path = os.path.join(os.path.dirname(__file__), 'config.json') 
+    with open(config_abs_path, 'r') as f: 
         config_content = json.load(f) 
 
-    if config_content["localUrlJson"] is True:
-        return read_templates("template.json")
+    if config_content["localUrlJson"]:
+        template_abs_path = config_content["templateUrlPath"]
+        return read_templates(template_abs_path)
+    else: 
+        template_url = config_content["templateUrlApi"]
+        my_data = requests.get(template_url)
+        return my_data.json()
+
 
 def read_templates(json_address: str) -> dict: 
     with open(json_address, 'r') as file: 
@@ -81,3 +89,4 @@ def delete_git_dir(project_name):
 
 if __name__ == '__main__': 
     create()
+    
