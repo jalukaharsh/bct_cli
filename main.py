@@ -28,14 +28,15 @@ def run_bct_cli():
 
 
 def create_config(): 
+    template_json_filepath = os.path.join(os.path.dirname(__file__), 'template.json')
     config_json_content = {
         "localUrlJson": True, 
         "templateUrlApi": "https://bct-cli-bucket.s3.ap-southeast-1.amazonaws.com/template.json",
-        "templateUrlPath": "/Users/jameshu/CompanyProjects/bct-cli/template.json"
+        "templateUrlPath": template_json_filepath
     }
 
     with open('config.json', 'w') as f: 
-        json.dump(config_json_content, f)
+        json.dump(config_json_content, f, indent=4)
 
 
 def validate_config(): 
@@ -55,9 +56,9 @@ def validate_config():
     else: 
         local_url_json = config_content["templateUrlPath"]
         if os.path.exists(local_url_json): 
-            print('Config file is valid')
+            print('Config filepath is valid')
         else: 
-            print('Local config file is invalid, please check templateUrlPath')
+            print('Local config filepath is invalid, please check templateUrlPath')
             status = False
     return status
 
