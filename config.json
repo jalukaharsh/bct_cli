@@ -1,0 +1,5 @@
+{
+  "localUrlJson": true,
+  "templateUrlApi": "https://bct-cli-bucket.s3.ap-southeast-1.amazonaws.com/template.json",
+  "templateUrlPath": "/Users/jameshu/CompanyProjects/bct-cli/template.json"
+}
