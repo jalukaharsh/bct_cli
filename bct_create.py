@@ -7,6 +7,13 @@ import os
 import platform
 
 
+def get_templates():
+    with open('config.json', 'r') as f: 
+        config_content = json.load(f) 
+
+    if config_content["localUrlJson"] is True:
+        return read_templates("template.json")
+
 def read_templates(json_address: str) -> dict: 
     with open(json_address, 'r') as file: 
         data = json.load(file) 
@@ -14,7 +21,7 @@ def read_templates(json_address: str) -> dict:
 
 
 def create(): 
-    template_dict = read_templates("template.json")
+    template_dict = get_templates()
     questions = [
         {
                 'type': 'list',
