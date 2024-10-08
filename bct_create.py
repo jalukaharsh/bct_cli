@@ -68,7 +68,7 @@ def create():
         git_init = 'git init ' + project_name
         git_remote_add_origin = 'git remote add origin ' + project_name + ' ' + bitbucket_url
         git_fetch = 'git fetch --all '
-        git_reset = 'git reset --hard origin/master ' + project_name
+        git_reset = 'git reset --hard origin/HEAD ' + project_name
 
         subprocess.run(git_init)
         subprocess.run(git_remote_add_origin)
@@ -89,4 +89,3 @@ def delete_git_dir(project_name):
 
 if __name__ == '__main__': 
     create()
-    
