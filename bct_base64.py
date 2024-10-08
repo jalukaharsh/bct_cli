@@ -25,7 +25,7 @@ def base64_encoder():
 
     extracted_text = extract_text(path)
 
-    if encode == 'E':
+    if encode == 'Encode':
         b = base64.b64encode(bytes(extracted_text, 'utf-8'))  # bytes
         base64_str = b.decode('utf-8')  # convert bytes to string
         print(base64_str)
