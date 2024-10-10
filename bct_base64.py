@@ -2,6 +2,7 @@
 
 from PyInquirer import prompt
 import base64
+import pyperclip
 
 
 def base64_encoder(): 
@@ -29,10 +30,15 @@ def base64_encoder():
         b = base64.b64encode(bytes(extracted_text, 'utf-8'))  # bytes
         base64_str = b.decode('utf-8')  # convert bytes to string
         print(base64_str)
+        pyperclip.copy(base64_str)
+        print('Encoded text copied to clipboard!')
     else:
         b = base64.b64decode(extracted_text)
         plaintext = b.decode('utf-8')  # convert bytes to string
         print(plaintext)
+        pyperclip.copy(plaintext)
+        print('Decoded text copied to clipboard!')
+
 
 
 def extract_text(filepath: str) -> str:
@@ -44,3 +50,4 @@ def extract_text(filepath: str) -> str:
 
 if __name__ == '__main__': 
     base64_encoder()
+    
