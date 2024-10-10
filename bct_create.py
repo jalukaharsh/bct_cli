@@ -30,6 +30,9 @@ def read_templates(json_address: str) -> dict:
 
 def create(): 
     template_dict = get_templates()
+    branch_name_message = 'Please input a name for the local branch (master by default). \n If you are syncing with \
+        an existing bitbucket repository, please name the branch according to the one you wish to track in the \
+        bitbucket repository!!'
     questions = [
         {
                 'type': 'list',
@@ -47,6 +50,12 @@ def create():
                 'type': 'input',
                 'name': 'bitbucketProjectUrl',
                 'message': 'Please input the bitbucket project url',
+        }, 
+        {
+                'type': 'input',
+                'name': 'branchName',
+                'message': branch_name_message, 
+                'default': 'master'
         }
     ]   
 
@@ -54,6 +63,7 @@ def create():
     template = answers['template']
     project_name = answers['projectName']
     bitbucket_url = answers['bitbucketProjectUrl']
+    branch_name = answers['branchName']
 
     template_url = template_dict[template]
     clone_template_call = 'git clone ' + template_url + ' ' + project_name + ' --depth=1'
@@ -62,18 +72,23 @@ def create():
 
     delete_git_dir(project_name)
 
+    project_path = os.path.join(os.path.dirname(__file__), project_name)
+    print(project_path)
+
     if bitbucket_url == '': 
         print('Cloning successful!')
     else: 
-        git_init = 'git init ' + project_name
-        git_remote_add_origin = 'git remote add origin ' + project_name + ' ' + bitbucket_url
-        git_fetch = 'git fetch --all '
-        git_reset = 'git reset --hard origin/HEAD ' + project_name
+        git_init = 'git init'
+        git_rename = 'git branch -m {}'.format(branch_name)
+        git_remote_add_origin = 'git remote add origin ' + bitbucket_url
+        git_set_upstream = 'git fetch --set-upstream origin {}'.format(branch_name)
+        git_pull = 'git pull'
 
-        subprocess.run(git_init)
-        subprocess.run(git_remote_add_origin)
-        subprocess.run(git_fetch)
-        subprocess.run(git_reset)
+        subprocess.run(git_init, cwd=project_path)
+        subprocess.run(git_remote_add_origin, cwd=project_path)
+        subprocess.run(git_rename, cwd=project_path)
+        subprocess.run(git_set_upstream, cwd=project_path)
+        subprocess.run(git_pull, cwd=project_path)
 
 
 def delete_git_dir(project_name):
