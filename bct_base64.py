@@ -40,7 +40,6 @@ def base64_encoder():
         print('Decoded text copied to clipboard!')
 
 
-
 def extract_text(filepath: str) -> str:
     with open(filepath, 'r') as f:
         my_txt = f.read()

@@ -30,9 +30,9 @@ def read_templates(json_address: str) -> dict:
 
 def create(): 
     template_dict = get_templates()
-    branch_name_message = 'Please input a name for the local branch (master by default). \n If you are syncing with \
-        an existing bitbucket repository, please name the branch according to the one you wish to track in the \
-        bitbucket repository!!'
+    branch_name_message = 'Please input a name for the local branch (master by default). \n If you are syncing with ' \
+                          'an existing bitbucket repository, please name the branch according to the one you wish to ' \
+                          'track in the bitbucket repository!!'
     questions = [
         {
                 'type': 'list',
